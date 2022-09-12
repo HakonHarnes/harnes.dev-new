@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import Header from './organisms/Header'
@@ -8,6 +8,30 @@ import ScrollPrompt from './molecules/ScrollPrompt'
 type Props = {}
 
 function HeroPage({}: Props) {
+  const [showScrollPrompt, setShowScrollPrompt] = useState(false)
+
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      setShowScrollPrompt(true)
+    }, 5000)
+
+    window.addEventListener('scroll', () => {
+      setShowScrollPrompt(false)
+      clearTimeout(timeout)
+
+      if (window.pageYOffset === 0) {
+        timeout = setTimeout(() => {
+          setShowScrollPrompt(true)
+        }, 15000)
+      }
+    })
+
+    return () => {
+      clearTimeout(timeout)
+      window.removeEventListener('scroll', () => {})
+    }
+  }, [])
+
   return (
     <Container>
       <Header />
@@ -23,7 +47,7 @@ function HeroPage({}: Props) {
       <ContactButton>
         <Button onClick={() => (window.location.href = 'mailto:hakon@harnes.dev')}>Say hello</Button>
       </ContactButton>
-      <ScrollPrompt href='' />
+      <ScrollPrompt visible={showScrollPrompt} href='' />
     </Container>
   )
 }
@@ -40,6 +64,7 @@ const Container = styled.div`
 
 const TextContainer = styled.div`
   align-self: end;
+
   * {
     margin: 0;
   }

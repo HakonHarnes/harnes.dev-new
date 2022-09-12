@@ -19,7 +19,7 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   font-weight: 500;
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 
   &:hover {

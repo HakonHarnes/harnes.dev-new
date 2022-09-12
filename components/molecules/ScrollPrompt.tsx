@@ -7,9 +7,11 @@ import ScrollIcon from '../atoms/ScrollIcon'
 
 type Props = {
   href: string
+  visible: boolean
+  style?: React.CSSProperties
 }
 
-function ScrollPrompt({ href }: Props) {
+function ScrollPrompt({ href, visible }: Props) {
   const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
@@ -22,22 +24,25 @@ function ScrollPrompt({ href }: Props) {
   }
 
   return (
-    <Container>
-      <ScrollIcon href={href} color={theme === 'dark' ? '#25313f' : '#000'} />
-      <ScrollLabel style={{ color: theme === 'dark' ? '#2e3c4d' : '#000' }}>SCROLL</ScrollLabel>
+    <Container visible={visible}>
+      <ScrollIcon href={href} color={theme === 'dark' ? '#fff' : '#000'} />
+      <ScrollLabel style={{ color: theme === 'dark' ? '#fff' : '#000' }}>SCROLL</ScrollLabel>
     </Container>
   )
 }
 
 export default ScrollPrompt
 
-const Container = styled.div`
+const Container = styled.div<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
   place-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
+  opacity: ${({ visible }: { visible: boolean }) => (visible ? '1' : '0')};
+  transition: opacity 1s;
 `
 
 const ScrollLabel = styled.div`
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.15rem;
+  font-size: 0.8rem;
 `

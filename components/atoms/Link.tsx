@@ -7,7 +7,11 @@ type Props = {
 }
 
 function Link({ href, children }: Props) {
-  return <StyledLink href={href}>{children}</StyledLink>
+  return (
+    <StyledLink href={href} target='_blank'>
+      {children}
+    </StyledLink>
+  )
 }
 
 export default Link
@@ -23,7 +27,7 @@ const StyledLink = styled.a`
     height: 0.2rem;
     margin-top: 0.25rem;
     border-radius: 50vw;
-    background: var(--color-primary-light);
+    background: var(--color-link-inactive);
     transition: background 0.1s linear;
   }
 
